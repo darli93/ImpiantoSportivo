@@ -19,7 +19,7 @@ public class Entity {
     }
     
     public List<String> getColumns() {
-    	List<String> res = new ArrayList<>();
+    	List<String> res = new ArrayList<String>();
     	res.addAll(campi.keySet());
     	return res;
     }

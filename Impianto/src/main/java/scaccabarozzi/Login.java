@@ -29,11 +29,9 @@ public class Login extends HttpServlet {
 		{	    
 
 			User user = new User();
-			user.setUsername(request.getParameter("un"));
-			user.setPassword(request.getParameter("pw"));
-
-			user = UserDAO.login(user);
-	    
+			UserDAO utente = new UserDAO();
+			user = utente.loginUser(request.getParameter("un"), request.getParameter("pw"));
+			
 			if (user.isValid() || user.isAdmin())
 			{
 				if(user.isAdmin()) {

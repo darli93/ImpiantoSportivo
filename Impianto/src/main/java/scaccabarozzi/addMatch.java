@@ -9,7 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import scaccabarozzi.*;
 /**
  * Servlet implementation class addMatch
  */
@@ -38,8 +38,9 @@ public class addMatch extends HttpServlet {
 		try
 		{	    
 
+			
 			Partita p = new Partita();
-			p.setSquadraCasa(request.getParameter("home"));
+			p .setSquadraCasa(request.getParameter("home"));
 			p.setSquadraOspite(request.getParameter("away"));
 			String nomeStadio = (request.getParameter("stadio"));
 			p.setPrezzo(Integer.parseInt(request.getParameter("prezzo")));

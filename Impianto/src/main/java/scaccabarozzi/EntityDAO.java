@@ -65,6 +65,46 @@ public abstract class EntityDAO {
 
 		return lista;
     }
+    
+    public void insertQuery(Object... o) throws SQLException {
+    	
+        ResultSet rs = null;
+        Statement stmt = null;
+        Connection currentCon = ConnectionManager.getConnection();
+        List<String> colonne = getAllColumns(currentCon);
+        
+        String query = " insert into " +  tableName  + " (";
+        for(String nomeColonna : colonne) {
+        	if(colonne.iterator().hasNext()) {
+        		query +=  nomeColonna + ",";
+        	} else {
+        		query +=  nomeColonna;
+        	}
+        }
+        
+    	query +=") " + " values ( ";
+    	
+    	 for(String nomeColonna : colonne) {
+         	if(colonne.iterator().hasNext()) {
+         		query +=   " ?,";
+         	} else {
+         		query +=  " ?";
+         	}
+         }
+    	 
+    	 query += ")";
+    	 
+    	PreparedStatement preparedStmt = currentCon.prepareStatement(query);
+//        preparedStmt.setString (1, "Barney");
+//        preparedStmt.setString (2, "Rubble");
+//        preparedStmt.setDate   (3, startDate);
+//        preparedStmt.setBoolean(4, false);
+//        preparedStmt.setInt    (5, 5000);
+
+         // execute the preparedstatement
+       // preparedStmt.execute();
+
+	}
 
     private List<String> getPrimaryKey( Connection currentCon) throws SQLException {
     	
@@ -88,7 +128,6 @@ public abstract class EntityDAO {
     	ResultSet rs = null;
     	 
     	currentCon = ConnectionManager.getConnection(); 
-    	//Statement stmt =currentCon.createStatement();
         DatabaseMetaData meta = currentCon.getMetaData();
     	List<String> colonne = new ArrayList<String>();
     	rs =  meta.getColumns(null, null, tableName, null);
@@ -141,6 +180,10 @@ public abstract class EntityDAO {
           break;
         case Types.FLOAT:
         	res = rs.getFloat(col);
+        	break;
+        case Types.TINYINT:
+        	res = rs.getByte(col);
+        	break;
         default:
           res = rs.getString(col);
           break;

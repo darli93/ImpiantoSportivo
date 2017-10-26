@@ -144,9 +144,7 @@ public class Squadra {
 	}
 	
 	public static String realName(Object o) {
-		
-		
-		
+
 		String nomeSquadra = null;
 		
 		switch (Integer.parseInt((String)o)) {
@@ -231,7 +229,7 @@ public class Squadra {
 	          
 	        	String nome = rs.getString("nomeSquadra"); // meta.get
 	        	array.add(nome);
-	           // partite.add(new Partita(realName(squadraCasa), realName(squadraOspite), stadio, prezzo));
+	            //partite.add(new Partita(realName(squadraCasa), realName(squadraOspite), stadio, prezzo));
 	        } 
 	           
 	     } 

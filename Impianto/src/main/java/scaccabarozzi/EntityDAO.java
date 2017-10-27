@@ -1,5 +1,6 @@
 package scaccabarozzi;
 import java.util.*;
+import java.util.Map.Entry;
 import java.sql.*;
 
 @SuppressWarnings("unused")
@@ -23,7 +24,7 @@ public abstract class EntityDAO {
         Statement stmt = null;
 		
 		try 
-	     {
+	      {
 	        //connect to DB 
 	        currentCon = ConnectionManager.getConnection(); 
 	        stmt=currentCon.createStatement();
@@ -66,44 +67,15 @@ public abstract class EntityDAO {
 		return lista;
     }
     
-    public void insertQuery(Object... o) throws SQLException {
+    public void insertQuery(Entity e) throws SQLException {
     	
         ResultSet rs = null;
-        Statement stmt = null;
         Connection currentCon = ConnectionManager.getConnection();
-        List<String> colonne = getAllColumns(currentCon);
+        List<String> colonne = e.getColumns();
         
-        String query = " insert into " +  tableName  + " (";
-        for(String nomeColonna : colonne) {
-        	if(colonne.iterator().hasNext()) {
-        		query +=  nomeColonna + ",";
-        	} else {
-        		query +=  nomeColonna;
-        	}
-        }
+        PreparedStatement stmt = generateInsertStatement(e, currentCon);
+        stmt.execute();
         
-    	query +=") " + " values ( ";
-    	
-    	 for(String nomeColonna : colonne) {
-         	if(colonne.iterator().hasNext()) {
-         		query +=   " ?,";
-         	} else {
-         		query +=  " ?";
-         	}
-         }
-    	 
-    	 query += ")";
-    	 
-    	PreparedStatement preparedStmt = currentCon.prepareStatement(query);
-//        preparedStmt.setString (1, "Barney");
-//        preparedStmt.setString (2, "Rubble");
-//        preparedStmt.setDate   (3, startDate);
-//        preparedStmt.setBoolean(4, false);
-//        preparedStmt.setInt    (5, 5000);
-
-         // execute the preparedstatement
-       // preparedStmt.execute();
-
 	}
 
     private List<String> getPrimaryKey( Connection currentCon) throws SQLException {
@@ -123,8 +95,8 @@ public abstract class EntityDAO {
         return keys;
     }
     
-    private List<String> getAllColumns( Connection currentCon) throws SQLException {
-    	 
+    protected List<String> getAllColumns(Connection currentCon) throws SQLException {
+     	 
     	ResultSet rs = null;
     	 
     	currentCon = ConnectionManager.getConnection(); 
@@ -188,8 +160,40 @@ public abstract class EntityDAO {
           res = rs.getString(col);
           break;
         }
+        
 
         return res;
       }
+    
+    private PreparedStatement generateInsertStatement(Entity entity, Connection con) throws SQLException {
+    	
+    	List<Object> values = new ArrayList<>();
+    	String query = "insert into " +  tableName  + " (";
+    	String valuesQuery = ") " + " values ( ";
+    	 
+    	Iterator<Entry<String, Object>> iterator = entity.getCampi().entrySet().iterator();
+    	while(iterator.hasNext()) {
+    		Entry<String, Object> entry = iterator.next();
+    		query += entry.getKey();
+    		valuesQuery += "?";
+    		if(iterator.hasNext()) {
+    			query += ", ";
+    			valuesQuery += ", ";
+    		}
+    		 	 
+    		values.add(entry.getValue());
+    	}
+    	 
+    	query += valuesQuery + " )";
+    	
+    	PreparedStatement stmt = con.prepareStatement(query);
+    	
+    	for(int i = 0; i < values.size(); i++) {
+    		stmt.setObject(i+1, values.get(i));
+    	}
+    	System.out.println("Executing query: " + query);
+    	return stmt;
+    	
+    }
 
 }

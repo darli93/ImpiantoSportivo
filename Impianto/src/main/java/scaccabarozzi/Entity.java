@@ -23,7 +23,7 @@ public class Entity {
     	res.addAll(campi.keySet());
     	return res;
     }
-    
+        
 	public String getNome() {
 		return nome;
 	}
@@ -42,7 +42,6 @@ public class Entity {
 	public void setCampi(Map<String, Object> campi) {
 		this.campi = campi;
 	}
-	
 	
     //metodo che recupera lista valori delle chiavi 
 	//

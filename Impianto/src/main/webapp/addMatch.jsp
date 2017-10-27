@@ -86,7 +86,7 @@
 			</div>
 			<div class ="form-group col-xs-4">
 				<label>Sconto</label>
-				<input class="form-control" name = "sconto" required="true">
+				<input class="form-control" name = "sconto">
 			</div>
 			<div class ="form-group col-xs-4">
 				<label>data</label>

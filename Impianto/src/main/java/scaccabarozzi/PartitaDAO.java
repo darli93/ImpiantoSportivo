@@ -1,5 +1,6 @@
 package scaccabarozzi;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,5 +18,13 @@ public class PartitaDAO extends EntityDAO {
 		
 		return partite;
 	}
+	
+	public void setPartita(Entity e) throws SQLException {
+		
+		insertQuery(e);
+		
+	}
+	
+	
 
 }

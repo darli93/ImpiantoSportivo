@@ -27,6 +27,7 @@ public class UserDAO extends EntityDAO {
 				
 				utente.setNome((String)e.getCampo("nome"));
 				utente.setCognome((String)e.getCampo("cognome"));
+				System.out.println(utente.getNome());
 				utente.setValid(true);
 				byte manager  = (byte)e.getCampo("manager");
 				
@@ -39,6 +40,12 @@ public class UserDAO extends EntityDAO {
 		}
 		
 		return utente;
+		
+	}
+	
+	public void addUser(Entity e) throws SQLException {
+		
+		insertQuery(e);
 		
 	}
 	

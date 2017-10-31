@@ -68,7 +68,7 @@ public class addMatch extends HttpServlet {
 			e.setCampi(myMap);
 			pa.setPartita(e);
 			
-			response.sendRedirect("admin.jsp");
+			response.sendRedirect("admin");
 	
 		} 
 		catch (Throwable theException) 	    

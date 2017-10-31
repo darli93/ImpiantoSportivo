@@ -36,9 +36,9 @@
     </div>
   </div>
 </nav>
-<div class="container-fluid ">    
+<div class="container-fluid">    
 	<div style="padding : 10px;">
-		<form action="register" method="get">
+		<form action="register" method="post">
 			<div class ="form-group col-xs-7">
 				<label>Username</label>
 				<input class="form-control" name = "username" required="true" autocomplete = "off">

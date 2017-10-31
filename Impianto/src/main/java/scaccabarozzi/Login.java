@@ -40,8 +40,8 @@ public class Login extends HttpServlet {
 					session.setAttribute("currentAdminUser",user);
 					response.sendRedirect("addMatch.jsp");
 				} else {
-					response.sendRedirect("partite.jsp"); //logged-in page
 					session.setAttribute("currentUser", user);
+					response.sendRedirect("index.jsp"); //logged-in page
 				}
 			}
  

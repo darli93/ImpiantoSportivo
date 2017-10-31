@@ -63,7 +63,7 @@
 	PartitaDAO partita = new PartitaDAO();
 	List<Entity> partite = partita.getPartite();
 	Squadra s  = new Squadra(new SquadraDAO());
-	StadioDAO stadio = new StadioDAO();
+	Stadio stadio = new Stadio(new StadioDAO());
 	for(Entity p : partite) {
 
 		Map<String, Object> myMap  = p.getCampi();	
@@ -72,11 +72,9 @@
       <tr>
         <td><%= s.referenceID((Integer.parseInt((String)p.getCampo("squadraCasa"))))%></td>
         <td><%= s.referenceID((Integer.parseInt((String)p.getCampo("squadraOspite")))) %></td> 
-      	<td><%= stadio.linkNameWithId(((Integer.parseInt((String)p.getCampo("stadio"))))) %></td> 
+      	<td><%= stadio.referenceID(((Integer.parseInt((String)p.getCampo("stadio"))))) %></td> 
         <td><%=((String)p.getCampo("data")).substring(0, 16)%></td>
         
-        
-
 <%	//--------------------------------------------------------------------------------------------------------------------    
 	if(currentUser != null) {%>  
 		<td><button class="btn btn-info">ACQUISTA</button> <button class="btn btn-success">PRENOTA</button></td> <%
@@ -89,7 +87,7 @@
 	 
 		partite.clear();
 
-	//---------------------------------------------------------------------------------------------------------------------
+  //---------------------------------------------------------------------------------------------------------------------
 %>
 
 	    </tbody>

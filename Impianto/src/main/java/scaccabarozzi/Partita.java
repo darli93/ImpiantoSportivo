@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 @SuppressWarnings("unused")
 public class Partita extends Entity {
@@ -19,8 +20,11 @@ public class Partita extends Entity {
 	private int stadio;
 	private float sconto;
 	private float prezzo;
+	private List<Entity> partite; 
 	
-	public Partita() {}
+	public Partita() {
+
+	}
 	
 	public Partita(String casa, String ospite, int stadio, float prezzo, String data ) {
 

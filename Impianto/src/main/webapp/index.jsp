@@ -6,6 +6,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="stile/myStyle.css">
+<%@ page import="java.util.List,java.util.*,java.util.Iterator"%>
+<%@ page import="scaccabarozzi.*"%>
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -39,12 +41,35 @@
       <p><a href="#">Link</a></p>
       <p><a href="#">Link</a></p>
     </div>
-    <div class="col-sm-8 text-left"> 
-      <h1>Welcome</h1>
+    <div class="col-sm-8 text-center bg"> 
+      <h1>Welcome  <% User currentUser = (User)session.getAttribute("currentUser"); 
+			if(currentUser != null) { %> 
+		
+			<%= currentUser.getNome()%> <%
+		
+	}%>  
+	</h1>
       <p>
       <hr>
-      <h3>Test</h3>
-      <p>Lorem ipsum...</p>
+      <h4>Next Match</h4>
+      <h2> 
+<% //------------------------------------------------------------------------------------------------------------------------
+    
+	PartitaDAO partita = new PartitaDAO();
+	//List<Entity> partite = partita.getPartite();
+	Squadra s  = new Squadra(new SquadraDAO());
+	Stadio stadio = new Stadio(new StadioDAO());
+	List<Entity> listaPartite = partita.getPartiteWithCondition();
+	Entity e = listaPartite.get(0);
+	String home = s.referenceID((Integer.parseInt((String)e.getCampo("squadraCasa"))));
+	String away = s.referenceID((Integer.parseInt((String)e.getCampo("squadraOspite"))));
+	String currentStadio = stadio.referenceID((Integer.parseInt((String)e.getCampo("stadio"))));
+    
+	//------------------------------------------------------------------------------------------------------------------------
+%>    
+      <%=home %> vs <%=away%> 
+      </h2>
+      <h4><%=currentStadio %></h4>
     </div>
     <div class="col-sm-2 sidenav">
       <div class="well">
@@ -57,9 +82,6 @@
   </div>
 </div>
 
-<footer class="container-fluid text-center">
-  <p>Footer Text</p>
-</footer>
 </body>
 
 </html>

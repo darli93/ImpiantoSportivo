@@ -25,4 +25,11 @@ public class PartitaDAO extends EntityDAO {
 		
 	}
 	
+public List<Entity> getPartiteWithCondition() {
+		
+		List<Entity> partite = executeSelectAllQuery("select * from partite order by data");
+		
+		return partite;
+	}
+	
 }

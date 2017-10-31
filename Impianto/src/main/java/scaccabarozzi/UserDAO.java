@@ -27,6 +27,7 @@ public class UserDAO extends EntityDAO {
 				
 				utente.setNome((String)e.getCampo("nome"));
 				utente.setCognome((String)e.getCampo("cognome"));
+				utente.setValid(true);
 				byte manager  = (byte)e.getCampo("manager");
 				
 				if(manager == 1) {

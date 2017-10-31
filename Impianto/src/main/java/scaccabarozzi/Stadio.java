@@ -16,8 +16,12 @@ public class Stadio {
 	private String nomeStadio;
 	private int capienza;
 	private int postiRimanenti;
-	private List<Partita> partite = new ArrayList<Partita>();
+	private List<Entity> stadi;
 	private double incassoTotale;
+	
+	public Stadio(StadioDAO d) {
+		stadi = d.getStadi();
+	}
 	
 	public int getIdStadio() {
 		return idStadio;
@@ -39,13 +43,31 @@ public class Stadio {
 	}
 	public int getPostiRimanenti() {
 		return postiRimanenti;
+	}	
+	public String referenceID(int id) {
+		
+		String name= "";
+		for(Entity e : stadi) {
+			int x = Integer.parseInt((String)e.getCampo("id"));
+			if(x == id) {
+				name = (String)e.getCampo("nomeStadio");
+			}
+		}
+		return name;
 	}
-	public List<Partita> getPartite() {
-		return partite;
+	
+	public int referenceName(String name) {
+		
+		int id = 0;
+		for(Entity e : stadi) {
+			String x = (String)e.getCampo("nomeStadio");
+			if(x.equals(name)) {
+				id =Integer.parseInt((String)e.getCampo("id"));
+			}
+		}
+		return id;
 	}
-	public void setPartite(List<Partita> partite) {
-		this.partite = partite;
-	}
+
 	public double getIncassoTotale() {
 		
 		 Statement stmt = null;  
@@ -207,61 +229,5 @@ public class Stadio {
 		return array;
 	}
 	
-	public static String realNameStadio(Object o) {
-		
-		String nomeStadio = null;
-		
-		switch (Integer.parseInt((String)o)) {
-		case 1:
-			nomeStadio = "Camp Nou";
-		break;
-		case 2:
-			nomeStadio = "Bernabeu";
-		break;
-		case 3:
-			nomeStadio = "San Siro";
-		break;
-		case 4:
-			nomeStadio = "Juventus Stadium";
-		break;
-		case 5:
-			nomeStadio = "Allianz Arena";
-		break;
-		case 6:
-			nomeStadio = "Training";
-		break;
-		default:
-			break;
-		}
-		return nomeStadio;
-	}
-		
-	public static int numeroStadio(String nomeStadio) {
 	
-		int num = 0;	
-	
-		switch (nomeStadio.toLowerCase()) {
-		case "camp nou":
-			num  = 1;
-		break;
-		case "bernabeu":
-			num = 2;
-		break;
-		case "san siro":
-			num = 3;
-		break;
-		case "juventus stadium":
-			num = 4;
-		break;
-		case  "allianz arena":
-			num = 5;
-		break;
-		case "training":
-			num = 6;
-		break;
-		default:
-			break;
-		}
-		return num;
-	} 
 }

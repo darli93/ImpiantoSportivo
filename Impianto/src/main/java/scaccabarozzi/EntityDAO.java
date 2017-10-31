@@ -42,7 +42,7 @@ public abstract class EntityDAO {
 	        	newEntity.setNome(tableName);
 	        	newEntity.setKeys(chiavi);
 	        	
-	        	for(int i = 1; i <= numeroColonne; i++) {
+	        	for(int i = 1; i <=numeroColonne; i++) {
 	        		Object obj = getTypedValue(rs, i);
 	        		myMap.put(columns.get(i-1), obj);
 	        	}
@@ -70,20 +70,42 @@ public abstract class EntityDAO {
     public void insertQuery(Entity e) throws SQLException {
     	
         ResultSet rs = null;
-        Connection currentCon = ConnectionManager.getConnection();
-        List<String> colonne = e.getColumns();
-        
+        Connection currentCon = ConnectionManager.getConnection();        
         PreparedStatement stmt = generateInsertStatement(e, currentCon);
         stmt.execute();
         
+        currentCon.close();
+        
 	}
 
-    private List<String> getPrimaryKey( Connection currentCon) throws SQLException {
+    public void updateQuery(Entity e, String condition) throws SQLException {
+    	
+    	List<Object> values = new ArrayList<>();
+    	ResultSet rs = null;
+        Connection con = ConnectionManager.getConnection();
+    	String query = generateUpdateStatemente(e, con, values);
+    	
+    	if(!(condition.isEmpty() || condition == null)) {
+    		query += " where " + condition;
+    	}
+    	
+    	PreparedStatement stmt = con.prepareStatement(query);
+    	
+    	for(int i = 0; i < values.size(); i++) {
+    		stmt.setObject(i+1, values.get(i));
+    	}
+    	System.out.println("Executing query: " + query);
+    	stmt.execute();
+    	
+    	con.close();
+	
+	}
+    
+    private List<String> getPrimaryKey(Connection currentCon) throws SQLException {
     	
         ResultSet rs = null;
         
     	currentCon = ConnectionManager.getConnection(); 
-    	//Statement stmt =currentCon.createStatement();
         DatabaseMetaData meta = currentCon.getMetaData();
     	List<String> keys = new ArrayList<String>();
         rs = meta.getPrimaryKeys(null, null, tableName);
@@ -193,6 +215,31 @@ public abstract class EntityDAO {
     	}
     	System.out.println("Executing query: " + query);
     	return stmt;
+    	
+    }
+    
+    private String generateUpdateStatemente(Entity entity, Connection con, List<Object> values) throws SQLException {
+    	
+    	String query = "update " +  tableName  + " set(";
+    	
+    	Iterator<Entry<String, Object>> iterator = entity.getCampi().entrySet().iterator();
+    	while(iterator.hasNext()) {
+    		Entry<String, Object> entry = iterator.next();
+    		query += entry.getKey() + " = ?";
+    		
+    		if(iterator.hasNext()) {
+    			query += ", ";
+    			
+    		}
+    		 	 
+    		values.add(entry.getValue());
+    	}
+    	
+    	query += ")";
+    	
+    	System.out.println("Executing query: " + query);
+    	
+    	return query;
     	
     }
 

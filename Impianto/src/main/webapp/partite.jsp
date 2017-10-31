@@ -49,26 +49,43 @@
         <th>Squadra Ospite</th>
         <th>Stadio</th>
         <th>Data</th>
+ <%//--------------------------------------------------------------------------------------------------------------------                     
+        
+	User currentUser = (User)session.getAttribute("currentUser"); 
+	if((currentUser != null)) {%>  
+		<th></th> <%	
+	}%> 
+        
       </tr>
     </thead>
     <tbody class ="">
 <%  //--------------------------------------------------------------------------------------------------------------------
 	PartitaDAO partita = new PartitaDAO();
 	List<Entity> partite = partita.getPartite();
-
+	Squadra s  = new Squadra(new SquadraDAO());
+	StadioDAO stadio = new StadioDAO();
 	for(Entity p : partite) {
 
 		Map<String, Object> myMap  = p.getCampi();	
 	//--------------------------------------------------------------------------------------------------------------------
 %>
       <tr>
-        <td><%= Squadra.realName(p.getCampo("squadraCasa"))%></td>
-        <td><%= Squadra.realName(p.getCampo("squadraOspite")) %></td> 
-      	<td><%= Stadio.realNameStadio(p.getCampo("stadio")) %></td> 
-        <td><%=((String)p.getCampo("data")).substring(0, 16)%></td> 
-     </tr>
-     
-<%} //---------------------------------------------------------------------------------------------------------------------
+        <td><%= s.referenceID((Integer.parseInt((String)p.getCampo("squadraCasa"))))%></td>
+        <td><%= s.referenceID((Integer.parseInt((String)p.getCampo("squadraOspite")))) %></td> 
+      	<td><%= stadio.linkNameWithId(((Integer.parseInt((String)p.getCampo("stadio"))))) %></td> 
+        <td><%=((String)p.getCampo("data")).substring(0, 16)%></td>
+        
+        
+
+<%	//--------------------------------------------------------------------------------------------------------------------    
+	if(currentUser != null) {%>  
+		<td><button class="btn btn-info">ACQUISTA</button> <button class="btn btn-success">PRENOTA</button></td> <%
+		
+	} else {%> 
+    	<td><a href="Login.jsp"><button class="btn btn-info"> ACQUISTA</button> <button class="btn btn-success">PRENOTA</button></a></td>
+<% } 
+
+} //---------------------------------------------------------------------------------------------------------------------
 	 
 		partite.clear();
 

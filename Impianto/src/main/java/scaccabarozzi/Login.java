@@ -34,12 +34,14 @@ public class Login extends HttpServlet {
 			
 			if (user.isValid() || user.isAdmin())
 			{
+				HttpSession session = request.getSession(true);
 				if(user.isAdmin()) {
-					HttpSession session = request.getSession(true);	    
+						    
 					session.setAttribute("currentAdminUser",user);
 					response.sendRedirect("addMatch.jsp");
 				} else {
-					response.sendRedirect("partite.jsp"); //logged-in page      		
+					response.sendRedirect("partite.jsp"); //logged-in page
+					session.setAttribute("currentUser", user);
 				}
 			}
  
@@ -57,7 +59,6 @@ public class Login extends HttpServlet {
 				//rd.include(request, response);
 			}
 		} 
-
 
 		catch (Throwable theException) 	    
 		{

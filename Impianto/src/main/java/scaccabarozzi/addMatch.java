@@ -42,8 +42,8 @@ public class addMatch extends HttpServlet {
 
 			Entity e = new Entity();
 			Partita p = new Partita();
-			SquadraDAO dbSquadra = new SquadraDAO();
-			StadioDAO dbStadio = new StadioDAO();
+			Squadra squadra = new Squadra(new SquadraDAO());
+			Stadio stad = new Stadio(new StadioDAO());
 			PartitaDAO pa = new PartitaDAO();
 			
 			String prezzoString = (String)request.getParameter("sconto");
@@ -56,9 +56,9 @@ public class addMatch extends HttpServlet {
 			String data = (String)request.getParameter("data");
 			
 			Map<String, Object> myMap = new LinkedHashMap<String, Object>();
-			myMap.put("squadraCasa", dbSquadra.linkIdwithName(squadrCasa));
-			myMap.put("squadraOspite", dbSquadra.linkIdwithName(squadraOspite));
-			myMap.put("stadio", dbStadio.linkIdwithName(stadio));
+			myMap.put("squadraCasa", squadra.referenceName(squadrCasa));
+			myMap.put("squadraOspite", squadra.referenceName(squadraOspite));
+			myMap.put("stadio", stad.referenceName(stadio));
 			myMap.put("prezzo", prezzo);
 			if(!prezzoString.isEmpty()) {
 				float sconto = Float.parseFloat(prezzoString);
@@ -68,29 +68,9 @@ public class addMatch extends HttpServlet {
 			e.setCampi(myMap);
 			pa.setPartita(e);
 			
-//			p .setSquadraCasa(request.getParameter("home"));
-//			p.setSquadraOspite(request.getParameter("away"));
-//			String nomeStadio = (request.getParameter("stadio"));
-//			p.setPrezzo(Integer.parseInt(request.getParameter("prezzo")));
-//			p.setSconto(Integer.parseInt(request.getParameter("sconto")));
-//			p.setData(request.getParameter("data"));
-//			p.setStadio(Stadio.numeroStadio(nomeStadio));
-			
-			
-//			if(p.getSquadraCasa().equals(p.getSquadraOspite())) {
-//				
-//				String info ="<br><br><label class='col-xs-12 text-center  text-danger'> Una squadra non può giocare contro se stessa!</label>";
-//				request.setAttribute("matchLog", info);
-//				RequestDispatcher rd = request.getRequestDispatcher("addMatch.jsp");
-//				rd.forward(request, response);
-//				//rd.include(request, response);
-//			} else {
-//				Squadra.aggiungiPartitaDB(p);
-//			}
+			response.sendRedirect("admin.jsp");
 	
 		} 
-
-
 		catch (Throwable theException) 	    
 		{
 			System.out.println(theException); 

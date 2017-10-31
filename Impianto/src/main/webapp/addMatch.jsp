@@ -1,3 +1,4 @@
+<%@page import="scaccabarozzi.SquadraDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -12,7 +13,7 @@
 </head>
 <body>
 <%@ page import="java.util.List,java.util.ArrayList,java.util.Iterator"%>
-<%@ page import="scaccabarozzi.Partita, scaccabarozzi.Squadra, scaccabarozzi.User, scaccabarozzi.Stadio"%>
+<%@ page import="scaccabarozzi.*"%>
 <% 
 
 	User currentUser = (User)session.getAttribute("currentAdminUser"); 
@@ -54,9 +55,12 @@
 				<label>Casa</label>
 				<select class="form-control" name = "home">
 				<% String selectedHome = null;
-				ArrayList<String> listaSquadre = Squadra.getNomiSquadre();
+				SquadraDAO squad = new SquadraDAO();
+				List<Entity> listaSquadre = squad.getSquadre();
 				
-				for(String squadra : listaSquadre) {%>
+				for(Entity e : listaSquadre) {
+					String squadra = (String)e.getCampo("nomeSquadra");
+				%>
 				       
 					<option><%=squadra%></option><% 
 					 	} %>
@@ -66,7 +70,9 @@
 				<label>Trasferta</label>
 				<select class="form-control" name = "away">
 				<% 
-				for(String squadra : listaSquadre) {%>
+				for(Entity e : listaSquadre) {
+					String squadra = (String)e.getCampo("nomeSquadra");
+				%>
 				       
 					<option><%=squadra%></option><% } %>
 				</select>
@@ -74,8 +80,12 @@
 			<div class ="form-group col-xs-4">
 				<label>Stadio</label>
 				<select class="form-control" name = "stadio">
-				<% ArrayList<String> listaStadi = Stadio.getStadiDAO();
-				for(String stadio : listaStadi) {%>
+<% 				
+				StadioDAO stadi = new StadioDAO();
+				List<Entity> listaStadi = stadi.getStadi();
+				for(Entity e : listaStadi) {
+					String stadio = (String)e.getCampo("nomeStadio");
+				%>
 				       
 					<option><%=stadio%></option><% } %>
 				</select>

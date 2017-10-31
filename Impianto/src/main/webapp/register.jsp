@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,35 +36,38 @@
     </div>
   </div>
 </nav>
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="jumbotron">
-					<form action="Login" method="post">
-						<div class="form-group">
-							<label>Please enter your username</label> 		
-							<input type="text" class="form-control" name="un">
-						</div>
-						<div class="form-group">
-							<label>Please enter your password</label>
-							<input type="password" class="form-control" name="pw">
-						</div>
-							<div class="col-xs-12 text-center">
-								<input type="submit" class="btn btn-default" value="Login">
-								
-							</div>	
-					</form>
-						 <% String infoLog = (String)request.getAttribute("InfoLog"); %>
-						 <% if(infoLog != null) {%>
-						 <%=infoLog%>
-						 <%}%>
-						 
-						 <a href="register.jsp"><button class="btn btn-default">Register</button></a>
-				</div>
+<div class="container-fluid ">    
+	<div style="padding : 10px;">
+		<form action="register" method="get">
+			<div class ="form-group col-xs-7">
+				<label>Username</label>
+				<input class="form-control" name = "username" required="true" autocomplete = "off">
 			</div>
-					
-		</div>
-		
+			<div class ="form-group col-xs-7">
+				<label>Nome</label>
+				<input class="form-control" name = "nome" required="true" autocomplete = "off">
+			</div>
+			<div class ="form-group col-xs-7">
+				<label>Cognome</label>
+				<input class="form-control" name = "cognome" required="true" autocomplete = "off">
+			</div>
+			<div class ="form-group col-xs-7">
+				<label>Email</label>
+				<input class="form-control" type="email" name = "mail" required="true" autocomplete = "off">
+			</div>
+			<div class ="form-group col-xs-7">
+				<label>Password</label>
+				<input class="form-control" type="password" name = "psw" required="true" autocomplete = "off">
+			</div>
+			<div class ="form-group col-xs-7">
+				<label>Confirm Password</label>
+				<input type="password" class="form-control" name = "psw2" required="true" autocomplete = "off">
+			</div>
+			<div class ="form-group col-xs-7">
+				<input type="submit" class="btn btn-default" value ="REGISTER">
+			</div>
+		</form>
 	</div>
+</div>
 </body>
 </html>

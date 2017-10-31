@@ -12,7 +12,7 @@ public class Entity {
 	
 	private String nome;
     private List<String> keys;
-    private Map<String,Object> campi;
+    protected Map<String,Object> campi;
     
     public Object getCampo(String nomeCampo) {
     	return campi.get(nomeCampo);

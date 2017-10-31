@@ -23,7 +23,7 @@ public class StadioDAO extends EntityDAO {
 		int id = 0;
 		List<Entity> stadi = new ArrayList<Entity>();
 		
-		stadi = executeSelectAllQuery("select id from stadio where nomeStadio = '" + nomeStadio + "'");
+		stadi = executeSelectAllQuery("select * from stadio where nomeStadio = '" + nomeStadio + "'");
 		System.out.println(stadi.size());
 		
 		for (Entity entity : stadi) {
@@ -33,6 +33,20 @@ public class StadioDAO extends EntityDAO {
 		
 	
 		return id;
+	}
+	
+public String linkNameWithId(int id) {
+		
+		String s = "";
+		
+		List<Entity> squadre =  executeSelectAllQuery("select * from stadio where id = '" + id + "'");
+		//System.out.println(squadre.size());
+		
+		for (Entity entity : squadre) {
+			s = (String)entity.getCampo("nomeStadio");
+		}
+		
+		return s;
 	}
 
 }

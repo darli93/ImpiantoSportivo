@@ -2,6 +2,7 @@ package scaccabarozzi;
 
 public class User {
 	
+	private int id;
 	private String username;
 	private String password;
 	private String nome;
@@ -9,11 +10,11 @@ public class User {
 	private boolean valid;
 	private boolean isAdmin;
 	
-	public boolean isAdmin() {
-		return isAdmin;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
+	public int getId() {
+		return id;
 	}
 	public String getUsername() {
 		return username;
@@ -44,5 +45,11 @@ public class User {
 	}
 	public void setValid(boolean valid) {
 		this.valid = valid;
+	}
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 }

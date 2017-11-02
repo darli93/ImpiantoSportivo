@@ -13,6 +13,8 @@ public abstract class EntityDAO {
 		this.tableName = tableName;
 	}
     
+	
+	/*Metodo che esegue una Select query, e setta all'interno di un Entity le colonne e le primary key  */
     public List<Entity> executeSelectAllQuery(String query) {
     	
     	List<Entity> lista = new ArrayList<Entity>();
@@ -48,7 +50,6 @@ public abstract class EntityDAO {
 	        	}
 	        	
 	        	newEntity.setCampi(myMap);
-	        	//System.out.println(myMap);
 	        	lista.add(newEntity);
 	        	
 	        }
@@ -167,10 +168,10 @@ public abstract class EntityDAO {
 
         switch (metadata.getColumnType(col)) {
         case Types.NUMERIC:
-          res = rs.getInt(col);
+        	res = rs.getInt(col);
           break;
         case Types.DATE:
-          res = rs.getDate(col);
+        	res = rs.getDate(col);
           break;
         case Types.FLOAT:
         	res = rs.getFloat(col);
@@ -179,11 +180,10 @@ public abstract class EntityDAO {
         	res = rs.getByte(col);
         	break;
         default:
-          res = rs.getString(col);
+        	res = rs.getString(col);
           break;
         }
         
-
         return res;
       }
     

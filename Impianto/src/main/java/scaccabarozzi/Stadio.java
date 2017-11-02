@@ -7,7 +7,7 @@ import java.util.List;
 
 
  //DA FARE IN SEGUITO RIPORTATE LE OPERAZIONI COLLEGATE AL DATABASE IN UNA CLASSE CHIAMATA $NOMECLASSE+DAO -> DATA ACCESS OBJECT!!
-public class Stadio {
+public class Stadio extends Entity {
 	
 	static Connection currentCon = null;
     static ResultSet rs = null;  

@@ -25,6 +25,7 @@ public class UserDAO extends EntityDAO {
 		
 			for(Entity e : userLogin) {
 				
+				utente.setId(Integer.parseInt((String)e.getCampo("idUsers")));
 				utente.setNome((String)e.getCampo("nome"));
 				utente.setCognome((String)e.getCampo("cognome"));
 				System.out.println(utente.getNome());

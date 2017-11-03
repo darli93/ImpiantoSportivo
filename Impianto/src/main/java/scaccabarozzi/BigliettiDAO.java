@@ -1,5 +1,6 @@
 package scaccabarozzi;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class BigliettiDAO extends EntityDAO {
@@ -14,5 +15,11 @@ public class BigliettiDAO extends EntityDAO {
 		
 		return biglietti;
 	
+	}
+	
+	public void buyTicket(User utente, Entity e) throws SQLException {
+		
+		insertQuery(e);
+		
 	}
 }

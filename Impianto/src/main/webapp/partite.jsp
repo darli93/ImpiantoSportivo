@@ -64,25 +64,33 @@
 	List<Entity> partite = partita.getPartite();
 	Squadra s  = new Squadra(new SquadraDAO());
 	Stadio stadio = new Stadio(new StadioDAO());
+	int i = 0;
 	for(Entity p : partite) {
+		
+		Map<String, Object> myMap  = p.getCampi();
+		String squadraCasa =  s.referenceID((Integer.parseInt((String)p.getCampo("squadraCasa"))));
+		String squadraOspite = s.referenceID((Integer.parseInt((String)p.getCampo("squadraOspite"))));
+		String stad = stadio.referenceID(((Integer.parseInt((String)p.getCampo("stadio")))));
+		String data = ((String)p.getCampo("data")).substring(0, 16);
+		String id = (String)p.getCampo("id");
 
-		Map<String, Object> myMap  = p.getCampi();	
 	//--------------------------------------------------------------------------------------------------------------------
 %>
       <tr>
-        <td><%= s.referenceID((Integer.parseInt((String)p.getCampo("squadraCasa"))))%></td>
-        <td><%= s.referenceID((Integer.parseInt((String)p.getCampo("squadraOspite")))) %></td> 
-      	<td><%= stadio.referenceID(((Integer.parseInt((String)p.getCampo("stadio"))))) %></td> 
-        <td><%=((String)p.getCampo("data")).substring(0, 16)%></td>
-        
+        <td><%= squadraCasa%></td>
+        <td><%= squadraOspite %></td> 
+      	<td><%= stad %></td> 
+        <td><%= data%></td>
+       
 <%	//--------------------------------------------------------------------------------------------------------------------    
 	if(currentUser != null) {%>  
-		<td><button class="btn btn-info">ACQUISTA</button> <button class="btn btn-success">PRENOTA</button></td> <%
-		
+		<td><button  onclick="start(<%=id%>)" class="acq <%=id%> btn btn-info">ACQUISTA</button> <button class="acq btn btn-success">PRENOTA</button></td> <%
+			
 	} else {%> 
-    	<td><a href="Login.jsp"><button class="btn btn-info"> ACQUISTA</button> <button class="btn btn-success">PRENOTA</button></a></td>
+    	<td><a href="Login.jsp"><button class="btn btn-info">ACQUISTA</button> <button class="btn btn-success" >PRENOTA</button></a></td>
 <% } 
-
+		i++;
+		//System.out.print( a.getCampo("squadraCasa").toString());
 } //---------------------------------------------------------------------------------------------------------------------
 	 
 		partite.clear();
@@ -91,7 +99,19 @@
 %>
 
 	    </tbody>
- 	 </table>	
+ 	 </table>
+ 	 	
  	 </div>
+ 	 <script>
+ 	function start(dato){
+ 		console.log(dato)
+ 		 $.ajax({
+ 	        type:"POST",
+ 	        url:"buy",
+ 	        dataType:"text",
+ 	        data: { "data" : dato}
+ 		 });
+ 	}
+ 	 </script>
 </body>
 </html>

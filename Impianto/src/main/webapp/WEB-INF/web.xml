@@ -5,6 +5,16 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
 <!--   <servlet> -->
+<!--   	<servlet-name>buy</servlet-name> -->
+<!--   	<display-name>buy</display-name> -->
+<!--   	<description></description> -->
+<!--   	<servlet-class>scaccabarozzi.buy</servlet-class> -->
+<!--   </servlet> -->
+<!--   <servlet-mapping> -->
+<!--   	<servlet-name>buy</servlet-name> -->
+<!--   	<url-pattern>/buy</url-pattern> -->
+<!--   </servlet-mapping> -->
+<!--   <servlet> -->
 <!--   	<servlet-name>register</servlet-name> -->
 <!--   	<display-name>register</display-name> -->
 <!--   	<description></description> -->

@@ -9,9 +9,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="stile/myStyle.css">
+  <%@ page import="scaccabarozzi.*"%>
 <title>Insert title here</title>
 </head>
 <body>
+<%User currentUser = (User)session.getAttribute("currentUser"); %>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -20,17 +22,25 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">Logo</a>
+      <a class="navbar-brand" href="index.jsp">Logo</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><a href="index.jsp">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Projects</a></li>
+        <li class="active"><a href="index.jsp">Home</a></li>
+        <li><a href="partite.jsp">Partite</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="Login.jsp"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+        <li> <% if(currentUser != null) { %> 
+		
+				<a href="Logout.jsp"><span class="glyphicon glyphicon-log-in"></span> Logout</a> <%
+		
+			} else {%>  
+				
+				<a href="Login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a> <%
+		
+		}%>
+		</li>
       </ul>
     </div>
   </div>

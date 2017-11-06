@@ -10,6 +10,7 @@
 <%@ page import="scaccabarozzi.*"%>
 </head>
 <body>
+<%User currentUser = (User)session.getAttribute("currentUser"); %>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -23,26 +24,33 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
         <li><a href="partite.jsp">Partite</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="Login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li> <% if(currentUser != null) { %> 
+		
+				<a href="Logout.jsp"><span class="glyphicon glyphicon-log-in"></span> Logout</a> <%
+		
+			} else {%>  
+				
+				<a href="Login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a> <%
+		
+		}%>
+		</li>
       </ul>
     </div>
   </div>
 </nav>
   
-<div class="container-fluid text-center">    
+<div class="container-fluid text-center" style="color:white">    
   <div class="row content">
     <div class="col-sm-2 sidenav">
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
+      <p><a href="#">I miei Acquisti</a></p>
+      <p><a href="#">Le mie prenotazioni</a></p>
     </div>
     <div class="col-sm-8 text-center bg"> 
-      <h1>Welcome  <% User currentUser = (User)session.getAttribute("currentUser"); 
+      <h1>Welcome  <% 
 			if(currentUser != null) { %> 
 		
 			<%= currentUser.getNome()%> <%
@@ -72,12 +80,16 @@
       <h4><%=currentStadio %></h4>
     </div>
     <div class="col-sm-2 sidenav">
-      <div class="well">
-        <p>ADS</p>
+    	<a href="partite.jsp">
+      <div class="well" style="color:black">
+        <p>ACQUISTA UN BIGLIETTO</p>
       </div>
-      <div class="well">
-        <p>ADS</p>
+      	</a>
+      	<a href="partite.jsp">
+      <div class="well" style="color:black">
+        <p>PRENOTA UN BIGLIETTO</p>
       </div>
+      </a>
     </div>
   </div>
 </div>
